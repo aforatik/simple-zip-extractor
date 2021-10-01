@@ -1,1 +1,4 @@
 /.pyenv
+/venv
+/.idea
+/src/*.zip
