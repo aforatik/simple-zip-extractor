@@ -1,10 +1,8 @@
 # ========== Imports ===========
-import zipfile
-from tabulate import tabulate
+from features import *
 
 # =============== Useful variables ============
 
-query_input = None
 
 available_operations = '''========  Operations  ======== :
     1) Extract all
@@ -24,57 +22,6 @@ def title_center_align(title: str, width: int, fill_char: str = ' ', gap_between
     print(title.center(len(title) + gap_between * 2, " ").center(len(title) + (gap_between + width) * 2, fill_char))
 
 
-def show_children_files_info():
-    children_file_info = {"file": [], "size": [], 'is Folder': [], 'compress type': [], 'compress size': []}
-    for file in archive_file.filelist:
-        name = file.filename
-        size = file.file_size
-        children_file_info['file'].append(name)
-        children_file_info['size'].append(str(size) + " byte")
-        children_file_info['is Folder'].append(file.is_dir())
-        children_file_info['compress type'].append(file.compress_type)
-        children_file_info['compress size'].append(file.compress_size)
-    print(tabulate(children_file_info, headers='keys', tablefmt='fancy_outline',
-                   showindex=range(1, len(archive_file.filelist) + 1)))
-
-
-def show_base_file_info():
-    directory_count = 0
-    for file in archive_file.filelist:
-        if file.is_dir():
-            directory_count += 1
-        else:
-            print("{} creation date : last modified on {}/{}/{} at {}:{}:{}".format(
-                file.filename.rpartition('/')[-1], *file.date_time))
-    print("filename : ", archive_file.filename)
-    print("number of children files : ", len(archive_file.filelist))
-    print("children folders : ", directory_count)
-
-
-def get_files_with_extension(extension: str):
-    search_result = []
-    for file in archive_file.filelist:
-        actual_file_name = str(file.filename.rpartition('/')[-1])
-        if actual_file_name.rpartition('.')[-1].lower() == extension.rpartition('.')[-1].lower():
-            search_result.append(actual_file_name)
-    return search_result
-
-
-def show_results(search_query):
-    extension_name: str = search_query
-    print("searching result with input ... {}".format(search_query))
-
-    search_results = get_files_with_extension(extension=extension_name)
-    count_search_result = len(search_results)
-    search_result_table = {"{} results found".format(count_search_result): search_results}
-    print(tabulate(search_result_table, headers='keys', tablefmt='fancy_outline'))
-
-
-def extract_all_files():
-    print("test function")
-    pass
-
-
 def no_use():
     print("Functionality not added...")
 
@@ -90,8 +37,8 @@ if file_path == "":
 else:
     try:
         archive_file = zipfile.ZipFile(file_path)
-    except Exception as e:
-        print(f"Error! {e.args[1]}")
+    except Exception as file_e:
+        print(f"Error! {file_e.args[1]}")
     else:
         title_center_align(archive_file.filename, 10, "=", gap_between=2)
 
@@ -110,30 +57,37 @@ else:
 
             # ======= Extract all files =======
             if operation == '1':
-                no_use()
+                extract_all_files(archive_file=archive_file)
+                print('\n')
                 input("....continue....".center(50))
             # ======= Selective extract ========
             elif operation == '2':
                 no_use()
+                print('\n')
                 input("....continue....".center(50))
             elif operation == '3':
+                print("\n[NOTE: keep empty or put space to search folders]\n")
                 query = input("enter extension name : ")
-                show_results(search_query=query)
+                show_results(archive_file=archive_file, search_query=query)
+                print('\n')
                 input("....continue....".center(50))
             elif operation == '4':
                 no_use()
+                print('\n')
                 input("....continue....".center(50))
             elif operation == '5':
                 no_use()
+                print('\n')
                 input("....continue....".center(50))
             elif operation == '6':
                 no_use()
+                print('\n')
                 input("....continue....".center(50))
             elif operation == '7':
                 no_use()
+                print('\n')
                 input("....continue....".center(50))
             elif operation == '8':
                 exit(0)
             else:
                 print("please enter number between 1-8\n")
-                input("....continue....".center(50))
