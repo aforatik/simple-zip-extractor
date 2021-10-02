@@ -28,7 +28,7 @@ def no_use():
 
 # =========== Enter file path ========
 
-file_path =  input("enter file path : ")
+file_path = input("enter a zip file path : ")
 
 file_path = file_path.strip(" ")
 
@@ -42,14 +42,16 @@ else:
     else:
         title_center_align(archive_file.filename, 10, "=", gap_between=2)
 
-        # 1) Extract all
+        # 1) Extract all (available)
         # 2) Selective extract
-        # 3) Search files with extension name
-        # 4) List all file information within this archive
+        # 3) Search files with extension name (available)
+        # 4) List all file information within this archive (available)
         # 5) Count all file types
         # 6) Count Specific file types
         # 7) Extract specific file types
         # 8) Exit
+
+        show_base_file_basic_info(archive_file=archive_file)
 
         while True:
             print(available_operations)
@@ -57,7 +59,9 @@ else:
 
             # ======= Extract all files =======
             if operation == '1':
-                extract_all_files(archive_file=archive_file)
+                print("\n[NOTE: keep empty to extract at current directory]\n")
+                output_folder = input('provide output directory name : ')
+                extract_all_files(archive_file=archive_file, output_directory=output_folder)
                 print('\n')
                 input("....continue....".center(50))
             # ======= Selective extract ========
@@ -65,16 +69,22 @@ else:
                 no_use()
                 print('\n')
                 input("....continue....".center(50))
+
+            # ========== Search files with extension name ===========
             elif operation == '3':
                 print("\n[NOTE: keep empty or put space to search folders]\n")
                 query = input("enter extension name : ")
-                show_results(archive_file=archive_file, search_query=query)
+                show_search_results(archive_file=archive_file, search_query=query)
                 print('\n')
                 input("....continue....".center(50))
+
+            # List all file information within this archive
             elif operation == '4':
-                no_use()
+                show_children_files_info(archive_file=archive_file)
                 print('\n')
                 input("....continue....".center(50))
+
+            # Count all file types
             elif operation == '5':
                 no_use()
                 print('\n')
