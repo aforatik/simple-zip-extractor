@@ -81,7 +81,7 @@ def no_use():
 
 # =========== Enter file path ========
 
-file_path = 'Day.zip'  # input("enter file path : ")
+file_path =  input("enter file path : ")
 
 file_path = file_path.strip(" ")
 
