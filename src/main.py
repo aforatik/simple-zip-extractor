@@ -40,7 +40,9 @@ else:
     except Exception as file_e:
         print(f"Error! {file_e.args[1]}")
     else:
-        title_center_align(archive_file.filename, 10, "=", gap_between=2)
+        file_actual_name = archive_file.filename.rpartition('/')[-1]
+
+        title_center_align("basic file information", 10, "=", gap_between=2)
 
         # 1) Extract all (available)
         # 2) Selective extract

@@ -17,9 +17,10 @@ def show_children_files_info(archive_file: zipfile.ZipFile):
 
 
 def show_base_file_basic_info(archive_file: zipfile.ZipFile):
+
     folder_count = 0
     file_count = 0
-    file_name = archive_file.filename
+    file_name = archive_file.filename.rpartition('/')[-1]
 
     for file in archive_file.filelist:
         if file.is_dir():
@@ -31,16 +32,6 @@ def show_base_file_basic_info(archive_file: zipfile.ZipFile):
     print("number of children files in : {}".format(file_count))
     print("")
 
-
-# def show_base_file_info(archive_file: zipfile.ZipFile):
-#     directory_count = 0
-#     for file in archive_file.filelist:
-#         if file.is_dir():
-#             directory_count += 1
-#         else:
-#             print("{} creation date : last modified on {}/{}/{} at {}:{}:{}".format(
-#                 file.filename.rpartition('/')[-1], *file.date_time))
-#
 
 def get_files_with_extension(archive_file: zipfile.ZipFile, extension: str):
     search_result = []
