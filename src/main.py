@@ -1,5 +1,5 @@
 # ========== Imports ===========
-from features import *
+from utils import *
 
 # =============== Useful variables ============
 
@@ -18,7 +18,7 @@ available_operations = '''========  Operations  ======== :
 
 # =========== Useful functions =============
 
-def title_center_align(title: str, width: int, fill_char: str = ' ', gap_between: int = 0):
+def titleText(title: str, width: int, fill_char: str = ' ', gap_between: int = 0):
     print(title.center(len(title) + gap_between * 2, " ").center(len(title) + (gap_between + width) * 2, fill_char))
 
 
@@ -42,7 +42,7 @@ else:
     else:
         file_actual_name = archive_file.filename.rpartition('/')[-1]
 
-        title_center_align("basic file information", 10, "=", gap_between=2)
+        titleText("basic file information", 10, "=", gap_between=2)
 
         # 1) Extract all (available)
         # 2) Selective extract

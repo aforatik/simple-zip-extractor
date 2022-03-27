@@ -1,4 +1,4 @@
 /.pyenv
 /venv
 /.idea
-/src/*.zip
+/test_folder

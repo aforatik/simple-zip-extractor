@@ -9,11 +9,9 @@ def show_base_file_basic_info(archive_file: zipfile.ZipFile):
     file_count = 0
     file_name = archive_file.filename.rpartition('/')[-1]
 
-    for file in archive_file.filelist:
-        if file.is_dir():
-            folder_count += 1
-        else:
-            file_count += 1
+    folder_count = sum(1 for file in archive_file.filelist if file.is_dir())
+    file_count = sum(1 for file in archive_file.filelist if not file.is_dir())
+
     print("filename : {}".format(file_name))
     print("folders in this file : {}".format(folder_count))
     print("number of children files in : {}".format(file_count))
