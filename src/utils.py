@@ -39,8 +39,11 @@ def show_children_files_info(archive_file: zipfile.ZipFile):
     children_file_info = {"file": [], "size": [], 'is Folder': [], 'compress type': [], 'compress size': []}
     for file in archive_file.filelist:
         name = file.filename
+        actual_name = name.rpartition('/')[-1]
         size = file.file_size
-        children_file_info['file'].append(name)
+
+        file_tree_lvl = f"..({name.count('/')})/"
+        children_file_info['file'].append(file_tree_lvl+actual_name)
         children_file_info['size'].append(str(size) + " byte")
         children_file_info['is Folder'].append(file.is_dir())
         children_file_info['compress type'].append(file.compress_type)
