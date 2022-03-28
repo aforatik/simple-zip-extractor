@@ -42,7 +42,7 @@ def show_children_files_info(archive_file: zipfile.ZipFile):
         actual_name = name.rpartition('/')[-1]
         size = file.file_size
 
-        file_tree_lvl = f"..({name.count('/')})/"
+        file_tree_lvl = '' if name.count('/')==0 else f"..({name.count('/')})/"
         children_file_info['file'].append(file_tree_lvl+actual_name)
         children_file_info['size'].append(str(size) + " byte")
         children_file_info['is Folder'].append(file.is_dir())
